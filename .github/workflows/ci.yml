@@ -29,5 +29,7 @@ jobs:
         run: test -f output/model.pkl
 
       # 5. Show output log (debug friendly)
-      - name: Show output files
-        run: ls -R output
+      #- name: Show output files
+      #  run: ls -R output
+      - name: Check output file
+        run: test -f output/test.txt

@@ -39,6 +39,8 @@ def main():
     # save metrics
     with open("output/metrics.txt", "w") as f:
         f.write(f"accuracy={acc:.4f}\n")
+    with open("output/test.txt", "w") as f:
+        f.write("ci ok\n")
 
     # save model
     joblib.dump(model, "output/model.pkl")
@@ -47,3 +49,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("CI TEST RUNNING")
