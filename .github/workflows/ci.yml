@@ -1,0 +1,33 @@
+name: ML CI Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Get your code
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2. Build Docker image
+      - name: Build Docker image
+        run: docker build -t cicd-ml-demo .
+
+      # 3. Run container (ML training)
+      - name: Run training in container
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/output:/app/output \
+            cicd-ml-demo
+
+      # 4. Check output exists (simple validation)
+      - name: Verify model was created
+        run: test -f output/model.pkl
+
+      # 5. Show output log (debug friendly)
+      - name: Show output files
+        run: ls -R output
